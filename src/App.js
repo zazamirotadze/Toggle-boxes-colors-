@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import "./index.css"
+import React from "react"
+import boxes from "./boxes"
+import Box from "./Box"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App(props) {
+                   
+    const [box1, setBox]=React.useState(boxes)
+    
+    
+    function toggle(id){
+        setBox(function(firstArray){
+            return firstArray.map(function(element){
+                return element.id ===id ? {...element, on: !element.on} : element
+            })
+        })
+    }
+    
+    
+    const boxElements = box1.map(function(value){
+        return(<Box 
+        greenMode ={true} 
+        On={value.on} 
+        key={value.id}
+        id={value.id} 
+        handleClick={toggle}/>)
+    })
+
+    return (
+        <main>
+            <h1>{boxElements}</h1>
+        </main>
+    )
 }
-
-export default App;
